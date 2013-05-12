@@ -47,7 +47,9 @@
                (isRelated? fts "Tom" "Fred") => false
                (isRelated? fts "Mary" "Fred") => true
                (isRelated? fts "Fred" "Mary") => true
-               (isRelated? fts "Fred" "Sue") => true)
+               (isRelated? fts "Fred" "Sue") => true
+               (isRelated? fts "Fred" "Pat") => true
+               (isRelated? fts "Pat" "Fred") => true)
 
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]
