@@ -16,6 +16,7 @@
          (fact "can query relations about isParent?"
                (isParent? fts nil nil) => false
                (isParent? fts "Does not exist" "Sue") => false
+               (isParent? fts "Mary" "Does not exist") => false
                (isParent? fts "John" "Sue") => true
                (isParent? fts "Mary" "Fred") => true
                (isParent? fts "Sue" "John") => false)
