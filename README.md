@@ -2,6 +2,19 @@
 
 Relationships allows you to model unrealistic family trees, just like you always wanted to! It uses [Midje](https://github.com/marick/Midje/) and was built to try out TDD.
 
+## Ubuntu Installation
+
+`wget https://raw.github.com/technomancy/leiningen/stable/bin/lein`
+`chmod +x lein`
+`./lein` will install Leiningen and Clojure.
+`./lein deps` will install the dependencies.
+
+`./lein midje` will run all tests.
+
+## OS X Installation
+
+`brew install leiningen` using [Homebrew](http://brew.sh/) or follow the Ubuntu steps for a standalone installation.
+
 ## How to run the tests
 
 `lein midje` will run all tests.
