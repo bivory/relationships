@@ -18,6 +18,7 @@
              (parse-relation "Mary,Fred") => {:parent "Mary" :child "Fred"})
 
        (fact "can parse multi-line relationships"
+             (parse-relations nil) => []
              (parse-relations "John,Sue\nMary,Fred\n") => [{:parent "John" :child "Sue"}
                                                            {:parent "Mary" :child "Fred"}]
              (parse-relations "John,Sue\nMary,Fred\nMary,Sue\nSue,Sam")

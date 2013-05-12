@@ -32,8 +32,10 @@
    John,Sue\nMary,Fred\n
    => [{:parent 'John' :child 'Sue'} {:parent 'Mary' :child 'Fred'}]"
   [relation-strings]
-  (let [relations (s/split-lines relation-strings)]
-    (map parse-relation relations)))
+  (if (nil? relation-strings)
+    []
+    (let [relations (s/split-lines relation-strings)]
+      (map parse-relation relations))))
 
 (defn parse-relations-file
   "Parses multiple parent child relation of the form:
