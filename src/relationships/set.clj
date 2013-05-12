@@ -19,9 +19,8 @@
     (not (empty? (get (get-parents relations child) parent))))
 
   (isSibling? [relations person1 person2]
-    (let [p1-parents (get-parents relations person1)
-          p2-parents (get-parents relations person2)]
-      (not (empty? (cset/intersection p1-parents p2-parents)))))
+    (let [p1-siblings (get-siblings relations person1)]
+      (not (nil? (get p1-siblings person2)))))
 
   (isAncestor? [relations ancestor? descendant?]
     (loop [to-check #{descendant?}
