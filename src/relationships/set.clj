@@ -3,10 +3,10 @@
 
 (defrecord FamilyTreeSet [relationships]
   relationships/FamilyTree
-  (isParent? [parent child] true)
-  (isSibling? [person1 person2] true)
-  (isAncestor? [person1 person2] true)
-  (isRelated? [person1 person2] true))
+  (isParent? [relations parent child] true)
+  (isSibling? [relations person1 person2] true)
+  (isAncestor? [relations person1 person2] true)
+  (isRelated? [relations person1 person2] true))
 
 (defn create-family-tree
   "Creates a FamilyTreeSet from relationships in the format

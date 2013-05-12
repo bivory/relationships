@@ -4,16 +4,16 @@
 (defprotocol FamilyTree
   "A protocol that allows the following queries about a family structure:"
   (isParent?
-    [parent child]
+    [relations parent child]
     "This returns true if the parent is a parent of the child.")
   (isSibling?
-    [person1 person2]
+    [relations person1 person2]
     "This returns true if person1 and person2 have at least one common parent.")
   (isAncestor?
-    [person1 person2]
+    [relations person1 person2]
     "This returns true if person1 is an ancestor of person2.")
   (isRelated?
-    [person1 person2]
+    [relations person1 person2]
     "This returns true if person1 and person2 have at least one common ancestor.
      This would mean that siblings satisfy this relations as well."))
 
