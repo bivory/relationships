@@ -3,5 +3,6 @@
   (:use [relationships.set]))
 
 (facts "about the `FamilyTreeSet` protocol implementation."
-  (fact ""))
+  (fact "can create relationships"
+        (create-family-tree nil) => {:relationships {}}))
 

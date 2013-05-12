@@ -8,4 +8,9 @@
   (isAncestor? [person1 person2] true)
   (isRelated? [person1 person2] true))
 
+(defn create-family-tree
+  "Creates a FamilyTreeSet from relationships in the format
+   [{:parent 'John' :child 'Sue'} {:parent 'Mary' :child 'Fred'}]"
+  [relationships]
+  (FamilyTreeSet. {}))
 
