@@ -6,8 +6,8 @@
 
 (facts "about the `FamilyTreeSet` protocol implementation."
        (fact "can create relationships"
-             (create-family-tree nil) => (->FamilyTreeSet nil)
-             (create-family-tree []) => (->FamilyTreeSet nil))
+             (create-family-tree nil) => (->FamilyTreeSet nil nil)
+             (create-family-tree []) => (->FamilyTreeSet nil nil))
 
        (let [relation [{:parent "John" :child "Sue"}
                        {:parent "John" :child "Fred"}
@@ -59,10 +59,11 @@
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]
                            (fact "can create relationships from a file"
-                                 (create-family-tree-from-file nil) => (->FamilyTreeSet nil)
-                                 (create-family-tree-from-file "") => (->FamilyTreeSet nil)
+                                 (create-family-tree-from-file nil) => (->FamilyTreeSet nil nil)
+                                 (create-family-tree-from-file "") => (->FamilyTreeSet nil nil)
                                  (create-family-tree-from-file t-core/test-path)
-                                 => (->FamilyTreeSet {"Fred" #{"Mary"}, "Sam" #{"Sue"}, "Sue" #{"John" "Mary"}})))
+                                 => (->FamilyTreeSet {"Fred" #{"Mary"}, "Sam" #{"Sue"}, "Sue" #{"John" "Mary"}}
+                                                     {"Fred" #{"Sue"}, "Sam" #{}, "Sue" #{"Fred"}})))
 
        (against-background [(before :facts (t-core/create-large-relationship-file))
                             (around :checks (let [fts (create-family-tree-from-file t-core/test-path)] ?form))
@@ -74,10 +75,18 @@
                                                       "George" #{"Pat"}
                                                       "John" #{"George" "Mary" "Sue"}
                                                       "Mary" #{"George"}
-                                                      "Sam" #{"Peggy"}}))
+                                                      "Sam" #{"Peggy"}}
+                                                     {"Chris" #{}
+                                                      "Fred" #{"George"}
+                                                      "George" #{"Fred"}
+                                                      "John" #{"Mary"}
+                                                      "Mary" #{"John"}
+                                                      "Sam" #{}}))
 
                            (fact "can query facts from the large file"
                                  (isParent? fts "Mary" "John") => true
                                  (isParent? fts "Sue" "Chris") => false
                                  (isSibling? fts "Mary" "John") => true
-                                 (isAncestor? fts "Pat" "Chris") => true))))
+                                 (isAncestor? fts "Pat" "Chris") => true
+                                 (isRelated? fts "Sam" "John") => false
+                                 (isRelated? fts "Fred" "John") => true))))
