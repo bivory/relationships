@@ -13,7 +13,8 @@
                        {:parent "John" :child "Fred"}
                        {:parent "Pat" :child "Mary"}
                        {:parent "Mary" :child "Fred"}
-                       {:parent "George" :child "Tom"}]
+                       {:parent "George" :child "Tom"}
+                       {:parent "Tom" :child "George"}]
              fts (create-family-tree relation)]
          (fact "can query relations about isParent?"
                (isParent? fts nil nil) => false
@@ -39,7 +40,10 @@
                (isAncestor? fts "Sue" "Fred") => false
                (isAncestor? fts "John" "Fred") => true
                (isAncestor? fts "Fred" "John") => false
-               (isAncestor? fts "Pat" "Fred") => true)
+               (isAncestor? fts "Pat" "Fred") => true
+               "and handle cycles; Tom is the parent of George who is the parent of Tom"
+               (isAncestor? fts "Tom" "George") => true
+               (isAncestor? fts "George" "Tom") => true)
 
          (fact "can query relations about isRelated?"
                (isRelated? fts nil nil) => false

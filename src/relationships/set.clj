@@ -22,10 +22,10 @@
     (loop [to-check #{descendant?}
            checked #{}]
       (let [check-person (first to-check)
+            checked-next (conj checked check-person)
             to-check-next (-> to-check
                               (cset/union (get-parents relations check-person))
-                              (disj check-person))
-            checked-next (conj checked check-person)]
+                              (cset/difference checked-next))]
         (if (relationships/isParent? relations ancestor? check-person)
           true
           (if (nil? check-person)
