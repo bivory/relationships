@@ -12,6 +12,7 @@
 (facts "about `relationship` core functions"
 
        (fact "can parse simple relationships"
+             (parse-relation nil) => nil
              (parse-relation "") => nil
              (parse-relation "John,Sue") => {:parent "John" :child "Sue"}
              (parse-relation "Mary,Fred") => {:parent "Mary" :child "Fred"})

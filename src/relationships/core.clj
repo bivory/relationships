@@ -21,7 +21,8 @@
   "Parses a simple parent child relation of the form:
    John,Sue => {:parent 'John' :child 'Sue'}"
   [relation-string]
-  (let [[parent child] (s/split relation-string #",")]
+  (let [safe-string (if (nil? relation-string) "" relation-string)
+        [parent child] (s/split safe-string #",")]
     (if (or (nil? parent) (nil? child))
       nil
       {:parent parent :child child})))
