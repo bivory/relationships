@@ -32,5 +32,19 @@
                             (after :facts (t-core/delete-relationship-file))]
                            (fact "can create relationships from a file"
                                  (create-family-tree-from-file nil) => (->FamilyTreeSet nil)
-                                 (create-family-tree-from-file "") => (->FamilyTreeSet nil))))
+                                 (create-family-tree-from-file "") => (->FamilyTreeSet nil)
+                                 (create-family-tree-from-file t-core/test-path)
+                                 => (->FamilyTreeSet {"Fred" #{"Mary"}, "Sam" #{"Sue"}, "Sue" #{"John" "Mary"}})))
+
+       (against-background [(before :facts (t-core/create-large-relationship-file))
+                            (after :facts (t-core/delete-large-relationship-file))]
+
+                           (fact "can create relationships from the large file"
+                                 (create-family-tree-from-file t-core/test-path)
+                                 => (->FamilyTreeSet {"Chris" #{"John"}
+                                                      "Fred" #{"Pat"}
+                                                      "George" #{"Pat"}
+                                                      "John" #{"George" "Mary" "Sue"}
+                                                      "Mary" #{"George"}
+                                                      "Sam" #{"Peggy"}}))))
 
