@@ -22,7 +22,9 @@
    John,Sue => {:parent 'John' :child 'Sue'}"
   [relation-string]
   (let [[parent child] (s/split relation-string #",")]
-    {:parent parent :child child}))
+    (if (or (nil? parent) (nil? child))
+      nil
+      {:parent parent :child child})))
 
 (defn parse-relations
   "Parses multiple parent child relation of the form:
