@@ -11,6 +11,7 @@
 
        (let [relation [{:parent "John" :child "Sue"}
                        {:parent "John" :child "Fred"}
+                       {:parent "Pat" :child "Mary"}
                        {:parent "Mary" :child "Fred"}]
              fts (create-family-tree relation)]
          (fact "can query relations about isParent?"
@@ -31,7 +32,8 @@
          (fact "can query relations about isAncestor?"
                (isAncestor? fts nil nil) => false
                (isAncestor? fts "Does not exist" "Sue") => false
-               (isAncestor? fts "Mary" "Sue") => false)
+               (isAncestor? fts "Mary" "Sue") => false
+               (isAncestor? fts "Fred" "Sue") => false)
 
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]
