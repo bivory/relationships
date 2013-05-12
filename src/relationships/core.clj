@@ -35,7 +35,7 @@
   (if (nil? relation-strings)
     []
     (let [relations (s/split-lines relation-strings)]
-      (map parse-relation relations))))
+      (remove nil? (map parse-relation relations)))))
 
 (defn parse-relations-file
   "Parses multiple parent child relation of the form:
