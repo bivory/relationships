@@ -5,10 +5,19 @@
 (defrecord FamilyTreeSet [child->parents]
   relationships/FamilyTree
 
-  (isParent? [relations parent child] (not (nil? (get-in relations [:child->parents child parent]))))
-  (isSibling? [relations person1 person2] false)
-  (isAncestor? [relations person1 person2] true)
-  (isRelated? [relations person1 person2] true))
+  (isParent? [relations parent child]
+    (not (nil? (get-in relations [:child->parents child parent]))))
+
+  (isSibling? [relations person1 person2]
+    (let [p1-parents (get-in relations [:child->parents person1])
+          p2-parents (get-in relations [:child->parents person2])]
+      (not (nil? (cset/intersection p1-parents p2-parents)))))
+
+  (isAncestor? [relations person1 person2]
+    true)
+
+  (isRelated? [relations person1 person2]
+    true))
 
 (defn create-family-tree
   "Creates a FamilyTreeSet from relationships in the format
