@@ -15,6 +15,7 @@
              fts (create-family-tree relation)]
          (fact "can query relations about isParent?"
                (isParent? fts "John" "Sue") => true
+               (isParent? fts "Mary" "Fred") => true
                (isParent? fts "Sue" "John") => false))
 
        (against-background [(before :facts (t-core/create-relationship-file))
