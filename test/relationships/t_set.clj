@@ -37,6 +37,7 @@
                                  => (->FamilyTreeSet {"Fred" #{"Mary"}, "Sam" #{"Sue"}, "Sue" #{"John" "Mary"}})))
 
        (against-background [(before :facts (t-core/create-large-relationship-file))
+                            (around :checks (let [fts (create-family-tree-from-file t-core/test-path)] ?form))
                             (after :facts (t-core/delete-large-relationship-file))]
 
                            (fact "can create relationships from the large file"
@@ -46,5 +47,8 @@
                                                       "George" #{"Pat"}
                                                       "John" #{"George" "Mary" "Sue"}
                                                       "Mary" #{"George"}
-                                                      "Sam" #{"Peggy"}}))))
+                                                      "Sam" #{"Peggy"}}))
 
+                           (fact "can query facts from the large file"
+                                 (isParent? fts "Mary" "John") => true
+                                 (isParent? fts "Sue" "Chris") => false)))
