@@ -33,7 +33,7 @@
             (recur to-check-next checked-next))))))
 
   (isRelated? [relations person1 person2]
-    true))
+    false))
 
 (defn create-family-tree
   "Creates a FamilyTreeSet from relationships in the format

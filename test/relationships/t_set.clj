@@ -39,6 +39,9 @@
                (isAncestor? fts "Fred" "John") => false
                (isAncestor? fts "Pat" "Fred") => true)
 
+         (fact "can query relations about isRelated?"
+               (isRelated? fts nil nil) => false)
+
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]
                            (fact "can create relationships from a file"
