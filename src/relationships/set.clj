@@ -2,15 +2,20 @@
   (:require [clojure.set :as cset])
   (:require [relationships.core :as relationships]))
 
+(defn- get-parents
+  "Gets the parents of the child."
+  [relations child]
+  (get-in relations [:child->parents child]))
+
 (defrecord FamilyTreeSet [child->parents]
   relationships/FamilyTree
 
   (isParent? [relations parent child]
-    (not (nil? (get-in relations [:child->parents child parent]))))
+    (not (nil? (get (get-parents relations child) parent))))
 
   (isSibling? [relations person1 person2]
-    (let [p1-parents (get-in relations [:child->parents person1])
-          p2-parents (get-in relations [:child->parents person2])]
+    (let [p1-parents (get-parents relations person1)
+          p2-parents (get-parents relations person2)]
       (not (nil? (cset/intersection p1-parents p2-parents)))))
 
   (isAncestor? [relations person1 person2]
