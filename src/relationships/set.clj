@@ -34,7 +34,8 @@
 
   (isRelated? [relations person1 person2]
     (or (relationships/isParent? relations person1 person2)
-        (relationships/isParent? relations person2 person1))))
+        (relationships/isParent? relations person2 person1)
+        (relationships/isSibling? relations person1 person2))))
 
 (defn create-family-tree
   "Creates a FamilyTreeSet from relationships in the format
