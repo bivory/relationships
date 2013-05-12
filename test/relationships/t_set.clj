@@ -36,7 +36,8 @@
                (isAncestor? fts "Fred" "Sue") => false
                (isAncestor? fts "Sue" "Fred") => false
                (isAncestor? fts "John" "Fred") => true
-               (isAncestor? fts "Fred" "John") => false)
+               (isAncestor? fts "Fred" "John") => false
+               (isAncestor? fts "Pat" "Fred") => true)
 
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]

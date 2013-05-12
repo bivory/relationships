@@ -18,8 +18,19 @@
           p2-parents (get-parents relations person2)]
       (not (nil? (cset/intersection p1-parents p2-parents)))))
 
-  (isAncestor? [relations person1 person2]
-    (relationships/isParent? relations person1 person2))
+  (isAncestor? [relations ancestor? descendant?]
+    (loop [to-check #{descendant?}
+           checked #{}]
+      (let [check-person (first to-check)
+            to-check-next (-> to-check
+                              (cset/union (get-parents relations check-person))
+                              (disj check-person))
+            checked-next (conj checked check-person)]
+        (if (relationships/isParent? relations ancestor? check-person)
+          true
+          (if (nil? check-person)
+            false
+            (recur to-check-next checked-next))))))
 
   (isRelated? [relations person1 person2]
     true))
