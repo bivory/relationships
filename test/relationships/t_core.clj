@@ -17,5 +17,6 @@
             {:parent "Mary" :child "Sue"}
             {:parent "Sue" :child "Sam"}])
 
-  (fact "can read in files"))
+  (fact "can read in files")
+       (parse-relations-file nil) => [])
 

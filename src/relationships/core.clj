@@ -31,3 +31,13 @@
   [relation-strings]
   (let [relations (s/split-lines relation-strings)]
     (map parse-relation relations)))
+
+(defn parse-relations-file
+  "Parses multiple parent child relation of the form:
+   John,Sue\nMary,Fred\n
+   => [{:parent 'John' :child 'Sue'} {:parent 'Mary' :child 'Fred'}]
+   from a file."
+  [file-path]
+  (if (nil? file-path)
+    []
+    (slurp file-path)))
