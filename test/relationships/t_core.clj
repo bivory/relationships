@@ -7,6 +7,10 @@
 
 (defn create-relationship-file [] (spit test-path "John,Sue\nMary,Fred\nMary,Sue\nSue,Sam"))
 (defn delete-relationship-file [] (io/delete-file test-path))
+(def relationship-file-output [{:parent "John" :child "Sue"}
+                               {:parent "Mary" :child "Fred"}
+                               {:parent "Mary" :child "Sue"}
+                               {:parent "Sue" :child "Sam"}])
 
 (defn create-large-relationship-file [] (spit test-path (str "Mary,John\n"
                                                              "George,Mary\n"
@@ -17,6 +21,14 @@
                                                              "Pat,Fred\n"
                                                              "Peggy,Sam")))
 (defn delete-large-relationship-file [] (io/delete-file test-path))
+(def large-relationship-file-output [{:child "John", :parent "Mary"}
+                                     {:child "Mary", :parent "George"}
+                                     {:child "John", :parent "George"}
+                                     {:child "John", :parent "Sue"}
+                                     {:child "Chris", :parent "John"}
+                                     {:child "George", :parent "Pat"}
+                                     {:child "Fred", :parent "Pat"}
+                                     {:child "Sam", :parent "Peggy"}])
 
 
 (facts "about `relationship` core functions"
@@ -43,21 +55,9 @@
                            (fact "can read in files"
                                  (parse-relations-file nil) => []
                                  (parse-relations-file "file-doesnt-exist") => []
-                                 (parse-relations-file test-path)
-                                 => [{:parent "John" :child "Sue"}
-                                     {:parent "Mary" :child "Fred"}
-                                     {:parent "Mary" :child "Sue"}
-                                     {:parent "Sue" :child "Sam"}]))
+                                 (parse-relations-file test-path) => relationship-file-output))
 
        (against-background [(before :facts (create-large-relationship-file))
                             (after :facts (delete-large-relationship-file))]
                            (fact "can read in large files"
-                                 (parse-relations-file test-path)
-                                 => [{:child "John", :parent "Mary"}
-                                     {:child "Mary", :parent "George"}
-                                     {:child "John", :parent "George"}
-                                     {:child "John", :parent "Sue"}
-                                     {:child "Chris", :parent "John"}
-                                     {:child "George", :parent "Pat"}
-                                     {:child "Fred", :parent "Pat"}
-                                     {:child "Sam", :parent "Peggy"}])))
+                                 (parse-relations-file test-path) => large-relationship-file-output)))
