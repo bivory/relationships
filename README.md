@@ -2,6 +2,10 @@
 
 Relationships allows you to model unrealistic family trees, just like you always wanted to! It uses [Midje](https://github.com/marick/Midje/) and was built to try out TDD.
 
+## Cloning the repository
+
+Run `git clone https://github.com/bivory/relationships.git` to clone the repository. Follow the installation steps in the following sections to setup [Clojure](http://clojure.org/), [Leiningen](http://leiningen.org/) and the dependencies.
+
 ## Ubuntu Installation
 
 `wget https://raw.github.com/technomancy/leiningen/stable/bin/lein`
