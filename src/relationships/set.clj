@@ -14,7 +14,7 @@
       (not (nil? (cset/intersection p1-parents p2-parents)))))
 
   (isAncestor? [relations person1 person2]
-    true)
+    false)
 
   (isRelated? [relations person1 person2]
     true))

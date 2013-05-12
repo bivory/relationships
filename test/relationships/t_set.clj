@@ -26,7 +26,10 @@
                (isSibling? fts "Does not exist" "Sue") => false
                (isSibling? fts "Fred" "Does not exist") => false
                (isSibling? fts "John" "Sue") => false
-               (isSibling? fts "Fred" "Sue") => true))
+               (isSibling? fts "Fred" "Sue") => true)
+
+         (fact "can query relations about isAncestor?"
+               (isAncestor? fts nil nil) => false)
 
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]
@@ -39,7 +42,6 @@
        (against-background [(before :facts (t-core/create-large-relationship-file))
                             (around :checks (let [fts (create-family-tree-from-file t-core/test-path)] ?form))
                             (after :facts (t-core/delete-large-relationship-file))]
-
                            (fact "can create relationships from the large file"
                                  (create-family-tree-from-file t-core/test-path)
                                  => (->FamilyTreeSet {"Chris" #{"John"}
@@ -52,4 +54,4 @@
                            (fact "can query facts from the large file"
                                  (isParent? fts "Mary" "John") => true
                                  (isParent? fts "Sue" "Chris") => false
-                                 (isSibling? fts "Mary" "John") => true)))
+                                 (isSibling? fts "Mary" "John") => true))))
