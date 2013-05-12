@@ -1,6 +1,6 @@
 # relationships
 
-The project uses [Midje](https://github.com/marick/Midje/).
+Relationships allows you to model unrealistic family trees, just like you always wanted to! It uses [Midje](https://github.com/marick/Midje/) and was built to try out TDD.
 
 ## How to run the tests
 
@@ -11,3 +11,9 @@ The project uses [Midje](https://github.com/marick/Midje/).
 `lein midje :autotest` will run all the tests indefinitely. It sets up a
 watcher on the code files. If they change, only the relevant tests will be
 run again.
+
+## License
+
+Copyright © 2013 Bryan Ivory
+
+Distributed under the Eclipse Public License, the same as Clojure.
