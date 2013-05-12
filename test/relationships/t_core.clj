@@ -8,6 +8,16 @@
 (defn create-relationship-file [] (spit test-path "John,Sue\nMary,Fred\nMary,Sue\nSue,Sam"))
 (defn delete-relationship-file [] (io/delete-file test-path))
 
+(defn create-large-relationship-file [] (spit test-path (str "Mary,John\n"
+                                                             "George,Mary\n"
+                                                             "George,John\n"
+                                                             "Sue,John\n"
+                                                             "John,Chris\n"
+                                                             "Pat,George\n"
+                                                             "Pat,Fred\n"
+                                                             "Peggy,Sam")))
+(defn delete-large-relationship-file [] (io/delete-file test-path))
+
 
 (facts "about `relationship` core functions"
 
@@ -37,4 +47,17 @@
                                  => [{:parent "John" :child "Sue"}
                                      {:parent "Mary" :child "Fred"}
                                      {:parent "Mary" :child "Sue"}
-                                     {:parent "Sue" :child "Sam"}])))
+                                     {:parent "Sue" :child "Sam"}]))
+
+       (against-background [(before :facts (create-large-relationship-file))
+                            (after :facts (delete-large-relationship-file))]
+                           (fact "can read in large files"
+                                 (parse-relations-file test-path)
+                                 => [{:child "John", :parent "Mary"}
+                                     {:child "Mary", :parent "George"}
+                                     {:child "John", :parent "George"}
+                                     {:child "John", :parent "Sue"}
+                                     {:child "Chris", :parent "John"}
+                                     {:child "George", :parent "Pat"}
+                                     {:child "Fred", :parent "Pat"}
+                                     {:child "Sam", :parent "Peggy"}])))
