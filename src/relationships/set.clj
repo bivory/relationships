@@ -14,3 +14,10 @@
   [relationships]
   (FamilyTreeSet. {}))
 
+(defn create-family-tree-from-file
+  "Creates a FamilyTreeSet from relationships in the format
+   [{:parent 'John' :child 'Sue'} {:parent 'Mary' :child 'Fred'}]
+   read in from a file"
+  [file-path]
+  (-> (relationships/parse-relations-file file-path)
+      (create-family-tree)))
