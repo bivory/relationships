@@ -11,12 +11,12 @@
   relationships/FamilyTree
 
   (isParent? [relations parent child]
-    (not (nil? (get (get-parents relations child) parent))))
+    (not (empty? (get (get-parents relations child) parent))))
 
   (isSibling? [relations person1 person2]
     (let [p1-parents (get-parents relations person1)
           p2-parents (get-parents relations person2)]
-      (not (nil? (cset/intersection p1-parents p2-parents)))))
+      (not (empty? (cset/intersection p1-parents p2-parents)))))
 
   (isAncestor? [relations ancestor? descendant?]
     (loop [to-check #{descendant?}

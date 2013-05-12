@@ -28,7 +28,8 @@
                (isSibling? fts "Does not exist" "Sue") => false
                (isSibling? fts "Fred" "Does not exist") => false
                (isSibling? fts "John" "Sue") => false
-               (isSibling? fts "Fred" "Sue") => true)
+               (isSibling? fts "Fred" "Sue") => true
+               (isSibling? fts "Tom" "Fred") => false)
 
          (fact "can query relations about isAncestor?"
                (isAncestor? fts nil nil) => false
