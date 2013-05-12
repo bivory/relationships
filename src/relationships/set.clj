@@ -6,7 +6,7 @@
   relationships/FamilyTree
 
   (isParent? [relations parent child] (not (nil? (get-in relations [:child->parents child parent]))))
-  (isSibling? [relations person1 person2] true)
+  (isSibling? [relations person1 person2] false)
   (isAncestor? [relations person1 person2] true)
   (isRelated? [relations person1 person2] true))
 

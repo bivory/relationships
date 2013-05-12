@@ -16,7 +16,10 @@
          (fact "can query relations about isParent?"
                (isParent? fts "John" "Sue") => true
                (isParent? fts "Mary" "Fred") => true
-               (isParent? fts "Sue" "John") => false))
+               (isParent? fts "Sue" "John") => false)
+
+         (fact "can query relations about isSibling?"
+               (isSibling? fts "John" "Sue") => false))
 
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]
