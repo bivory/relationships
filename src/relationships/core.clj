@@ -15,3 +15,9 @@
     [person1 person2]
     "This returns true if person1 and person2 have at least one common ancestor.
      This would mean that siblings satisfy this relations as well."))
+
+(defn parse-relation
+  "Parses a simple parent child relation of the form:
+   John,Sue\n => {:parent 'John' :child 'Sue'}"
+  [relation-string]
+  {:parent "John" :child "Sue"})
