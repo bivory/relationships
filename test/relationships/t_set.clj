@@ -40,7 +40,8 @@
                (isAncestor? fts "Pat" "Fred") => true)
 
          (fact "can query relations about isRelated?"
-               (isRelated? fts nil nil) => false)
+               (isRelated? fts nil nil) => false
+               (isRelated? fts "Does not exist" "Sue") => false)
 
        (against-background [(before :facts (t-core/create-relationship-file))
                             (after :facts (t-core/delete-relationship-file))]
