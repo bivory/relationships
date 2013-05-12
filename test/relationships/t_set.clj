@@ -13,4 +13,5 @@
                             (after :facts (t-core/delete-relationship-file))]
 
                            (fact "can create relationships from a file"
-                                 (create-family-tree-from-file nil) => {:relationships {}})))
+                                 (create-family-tree-from-file nil) => {:relationships {}}
+                                 (create-family-tree-from-file "") => {:relationships {}})))
