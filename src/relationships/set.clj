@@ -1,9 +1,11 @@
 (ns relationships.set
+  (:require [clojure.set :as cset])
   (:require [relationships.core :as relationships]))
 
-(defrecord FamilyTreeSet [relationships]
+(defrecord FamilyTreeSet [child->parents]
   relationships/FamilyTree
-  (isParent? [relations parent child] true)
+
+  (isParent? [relations parent child] (not (nil? (get-in relations [:child->parents child parent]))))
   (isSibling? [relations person1 person2] true)
   (isAncestor? [relations person1 person2] true)
   (isRelated? [relations person1 person2] true))
@@ -12,7 +14,9 @@
   "Creates a FamilyTreeSet from relationships in the format
    [{:parent 'John' :child 'Sue'} {:parent 'Mary' :child 'Fred'}]"
   [relationships]
-  (FamilyTreeSet. {}))
+  (let [parent-child (map (fn [{:keys [parent child]}] {child #{parent}}) relationships)
+        parent-relations (apply merge-with cset/union parent-child)]
+    (FamilyTreeSet. parent-relations)))
 
 (defn create-family-tree-from-file
   "Creates a FamilyTreeSet from relationships in the format
