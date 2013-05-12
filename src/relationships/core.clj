@@ -19,8 +19,15 @@
 
 (defn parse-relation
   "Parses a simple parent child relation of the form:
-   John,Sue\n => {:parent 'John' :child 'Sue'}"
+   John,Sue => {:parent 'John' :child 'Sue'}"
   [relation-string]
-  (let [clean-string (s/trim-newline relation-string)
-        [parent child] (s/split clean-string #",")]
+  (let [[parent child] (s/split relation-string #",")]
     {:parent parent :child child}))
+
+(defn parse-relations
+  "Parses multiple parent child relation of the form:
+   John,Sue\nMary,Fred\n
+   => [{:parent 'John' :child 'Sue'} {:parent 'Mary' :child 'Fred'}]"
+  [relation-strings]
+  (let [relations (s/split-lines relation-strings)]
+    (map parse-relation relations)))
