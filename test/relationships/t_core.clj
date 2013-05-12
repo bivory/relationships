@@ -2,6 +2,6 @@
   (:use midje.sweet)
   (:use [relationships.core]))
 
-(facts "about the `FamilyTree` protocol."
-  (fact "it normally returns the first element"))
+(facts "about `relationship` core functions"
+  (fact "can read in files"))
 
