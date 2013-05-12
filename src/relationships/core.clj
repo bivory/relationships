@@ -1,4 +1,5 @@
-(ns relationships.core)
+(ns relationships.core
+  (:require [clojure.string :as s]))
 
 (defprotocol FamilyTree
   "A protocol that allows the following queries about a family structure:"
@@ -20,4 +21,6 @@
   "Parses a simple parent child relation of the form:
    John,Sue\n => {:parent 'John' :child 'Sue'}"
   [relation-string]
-  {:parent "John" :child "Sue"})
+  (let [clean-string (s/trim-newline relation-string)
+        [parent child] (s/split clean-string #",")]
+    {:parent parent :child child}))
