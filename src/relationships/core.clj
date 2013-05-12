@@ -41,5 +41,5 @@
   (if (nil? file-path)
     []
     (try
-      (slurp file-path)
+      (-> (slurp file-path) (parse-relations))
       (catch java.io.FileNotFoundException e []))))
