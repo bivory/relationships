@@ -62,4 +62,5 @@
                            (fact "can query facts from the large file"
                                  (isParent? fts "Mary" "John") => true
                                  (isParent? fts "Sue" "Chris") => false
-                                 (isSibling? fts "Mary" "John") => true))))
+                                 (isSibling? fts "Mary" "John") => true
+                                 (isAncestor? fts "Pat" "Chris") => true))))
