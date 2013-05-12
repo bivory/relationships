@@ -40,4 +40,6 @@
   [file-path]
   (if (nil? file-path)
     []
-    (slurp file-path)))
+    (try
+      (slurp file-path)
+      (catch java.io.FileNotFoundException e []))))

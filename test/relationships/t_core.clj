@@ -18,5 +18,6 @@
             {:parent "Sue" :child "Sam"}])
 
   (fact "can read in files")
-       (parse-relations-file nil) => [])
+       (parse-relations-file nil) => []
+       (parse-relations-file "file-doesnt-exist") => [])
 
